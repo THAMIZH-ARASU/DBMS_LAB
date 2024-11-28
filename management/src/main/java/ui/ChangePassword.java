@@ -111,7 +111,7 @@ public class ChangePassword extends JFrame {
 				}
 			}
 		});
-		showOldPassButton.setIcon(new ImageIcon("C:\\PEC-26\\5th SEM\\DBMS_LAB\\eclipse_workspace_inventory\\DuplicatedInventoryJar\\src\\main\\java\\ui\\images\\eye.png"));
+		showOldPassButton.setIcon(new ImageIcon(ChangePassword.class.getResource("/assets/eye.png")));
 		showOldPassButton.setBounds(365, 253, 48, 41);
 		contentPane.add(showOldPassButton);
 		
@@ -254,7 +254,7 @@ public class ChangePassword extends JFrame {
 				}
 			}
 		});
-		showNewPassButton.setIcon(new ImageIcon("C:\\PEC-26\\5th SEM\\DBMS_LAB\\eclipse_workspace_inventory\\DuplicatedInventoryJar\\src\\main\\java\\ui\\images\\eye.png"));
+		showNewPassButton.setIcon(new ImageIcon(ChangePassword.class.getResource("/assets/eye.png")));
 		showNewPassButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		showNewPassButton.setBounds(365, 336, 48, 41);
 		contentPane.add(showNewPassButton);

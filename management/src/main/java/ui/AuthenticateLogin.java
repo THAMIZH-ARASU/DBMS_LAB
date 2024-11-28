@@ -79,10 +79,11 @@ public class AuthenticateLogin extends JFrame {
 		contentPane.add(titleLabel);
 		
 		JLabel loginLabel = new JLabel("LOGIN");
+		loginLabel.setIcon(null);
 		loginLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		loginLabel.setFont(new Font("Noto Sans Georgian", Font.BOLD, 34));
 		loginLabel.setForeground(new Color(207, 255, 220));
-		loginLabel.setBounds(10, 84, 425, 41);
+		loginLabel.setBounds(65, 84, 370, 41);
 		contentPane.add(loginLabel);
 		
 		userTextField = new JTextField();
@@ -111,7 +112,7 @@ public class AuthenticateLogin extends JFrame {
 				}
 			}
 		});
-		showPassButton.setIcon(new ImageIcon("C:\\PEC-26\\5th SEM\\DBMS_LAB\\eclipse_workspace_inventory\\DuplicatedInventoryJar\\src\\main\\java\\ui\\images\\eye.png"));
+		showPassButton.setIcon(new ImageIcon(AuthenticateLogin.class.getResource("/assets/eye.png")));
 		showPassButton.setBounds(365, 320, 48, 41);
 		contentPane.add(showPassButton);
 		
@@ -191,6 +192,11 @@ public class AuthenticateLogin extends JFrame {
 		createAccButton.setFont(new Font("Noto Sans", Font.ITALIC, 15));
 		createAccButton.setBounds(206, 495, 207, 23);
 		contentPane.add(createAccButton);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\PEC-26\\5th SEM\\DBMS_LAB\\eclipse_workspace_inventory\\management\\src\\main\\java\\assets\\login-icon.png"));
+		lblNewLabel.setBounds(136, 84, 46, 48);
+		contentPane.add(lblNewLabel);
 	}
 	
 	public boolean checkLogin(String username, String password) {

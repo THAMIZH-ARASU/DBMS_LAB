@@ -973,7 +973,7 @@ public class Form extends JFrame {
 		});
 		
 		refreshButton.setBorder(new EmptyBorder(0, 0, 0, 0));
-		refreshButton.setIcon(new ImageIcon("C:\\PEC-26\\5th SEM\\DBMS_LAB\\eclipse_workspace_inventory\\DuplicatedInventoryJar\\src\\main\\java\\ui\\images\\reload.png"));
+		refreshButton.setIcon(new ImageIcon(Form.class.getResource("/assets/reload.png")));
 		refreshButton.setBounds(759, 607, 60, 36);
 		contentPane.add(refreshButton);
 		
@@ -988,7 +988,7 @@ public class Form extends JFrame {
 		btnNewButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btnNewButton.setBackground(new Color(240, 240, 240));
 		btnNewButton.setFont(new Font("Noto Sans Arabic", Font.BOLD, 18));
-		btnNewButton.setIcon(new ImageIcon("C:\\PEC-26\\5th SEM\\DBMS_LAB\\eclipse_workspace_inventory\\DuplicatedInventoryJar\\src\\main\\java\\ui\\logout.png"));
+		btnNewButton.setIcon(new ImageIcon(Form.class.getResource("/assets/logout.png")));
 		btnNewButton.setBounds(10, 11, 144, 41);
 		contentPane.add(btnNewButton);
 		

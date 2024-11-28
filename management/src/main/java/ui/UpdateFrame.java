@@ -190,7 +190,7 @@ public class UpdateFrame extends JFrame {
 				}
 			}
 		});
-		refreshButton.setIcon(new ImageIcon("C:\\PEC-26\\5th SEM\\DBMS_LAB\\eclipse_workspace_inventory\\DuplicatedInventoryJar\\src\\main\\java\\ui\\images\\reload.png"));
+		refreshButton.setIcon(new ImageIcon(UpdateFrame.class.getResource("/assets/reload.png")));
 		refreshButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		refreshButton.setBounds(516, 119, 60, 27);
 		contentPane.add(refreshButton);

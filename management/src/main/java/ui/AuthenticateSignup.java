@@ -36,6 +36,7 @@ public class AuthenticateSignup extends JFrame {
 	private JButton signInButton;
 	private JLabel HaveAccLabel;
 	private JButton loginButton;
+	private JLabel lblNewLabel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -73,7 +74,7 @@ public class AuthenticateSignup extends JFrame {
 		signUpLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		signUpLabel.setFont(new Font("Noto Sans Georgian", Font.BOLD, 34));
 		signUpLabel.setForeground(new Color(207, 255, 220));
-		signUpLabel.setBounds(10, 84, 425, 41);
+		signUpLabel.setBounds(71, 84, 353, 41);
 		contentPane.add(signUpLabel);
 		
 		userTextField = new JTextField();
@@ -103,7 +104,7 @@ public class AuthenticateSignup extends JFrame {
 				}
 			}
 		});
-		showPassButton.setIcon(new ImageIcon("C:\\PEC-26\\5th SEM\\DBMS_LAB\\eclipse_workspace_inventory\\DuplicatedInventoryJar\\src\\main\\java\\ui\\images\\eye.png"));
+		showPassButton.setIcon(new ImageIcon(AuthenticateSignup.class.getResource("/assets/eye.png")));
 		showPassButton.setBounds(365, 320, 48, 41);
 		contentPane.add(showPassButton);
 		
@@ -186,6 +187,11 @@ public class AuthenticateSignup extends JFrame {
 		loginButton.setFont(new Font("Noto Sans", Font.ITALIC, 15));
 		loginButton.setBounds(286, 497, 61, 23);
 		contentPane.add(loginButton);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(AuthenticateSignup.class.getResource("/assets/login-icon.png")));
+		lblNewLabel.setBounds(130, 87, 46, 48);
+		contentPane.add(lblNewLabel);
 	}
 	
 	public boolean checkLogin(String username, String password) {

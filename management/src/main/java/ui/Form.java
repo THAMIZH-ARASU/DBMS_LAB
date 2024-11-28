@@ -497,10 +497,7 @@ public class Form extends JFrame {
 		formPanel.add(committedBit);
 		
 		JButton saveButton = new JButton("SAVE");
-		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 		saveButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		saveButton.addMouseListener(new MouseAdapter() {
@@ -528,6 +525,20 @@ public class Form extends JFrame {
 		            checkStmt.setString(1, pid);
 		            ResultSet rs = checkStmt.executeQuery();
 		            if (rs.next()) {
+		            	if(
+		            			(name.equals(rs.getString("product_name"))) &&
+		            			(category.equals(rs.getString("category"))) &&
+		            			(brand.equals(rs.getString("brand"))) &&
+		            			(p_model.equals(rs.getString("model"))) &&
+		            			(specification.equals(rs.getString("specification"))) &&
+		            			(price.equals(rs.getString("price"))) &&
+		            			(available.equals(rs.getString("available_stock"))) &&
+		            			(istrendy.equals(rs.getString("is_trending")))
+		            			
+		            			) {
+		            		JOptionPane.showMessageDialog(null, "Already saved to Buffer!");
+		            		return;
+		            	}
 		                // Update existing record
 		                String updateQuery = "UPDATE product1 SET product_name = '"+ name + "' ,category = '"+ category +"' ,brand = '"+ brand +"' ,model = '"+ p_model +"' ,"
 		                		+ "specification = '"+specification+"' ,price = "+ price +" ,available_stock = "+ available +" ,is_trending = '"+ istrendy +"', committed = 'No' WHERE product_id ="+ pid +"";
@@ -816,11 +827,7 @@ public class Form extends JFrame {
 		});
 		*/
 		
-		
-		commitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+	
 		commitButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		commitButton.addMouseListener(new MouseAdapter() {
 		    @Override

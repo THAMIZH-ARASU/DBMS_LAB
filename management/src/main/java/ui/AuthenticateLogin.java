@@ -160,6 +160,7 @@ public class AuthenticateLogin extends JFrame {
 				
 				if(checkLogin(username,password)==true){
 		            dispose();
+		            
 		            Form frame = new Form();
 		            frame.setLocationRelativeTo(null);
 			        frame.setVisible(true);

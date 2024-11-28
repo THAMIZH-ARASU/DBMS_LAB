@@ -1162,8 +1162,6 @@ public class Form extends JFrame {
 		        }
 
 		        new UpdateFrame(selectedPid, conn, selectedPid).setVisible(true);
-		        
-		        System.out.println("-----------------");
 	            // Refresh table and combo data
 	            loadTableData();
 	            loadComboData();

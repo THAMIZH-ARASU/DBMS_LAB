@@ -46,7 +46,7 @@ public class UpdateFrame extends JFrame {
 		            // Connect to Oracle database
 		            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "thamizh", "thamizh");
 		            System.out.println("Connection Tested");
-					UpdateFrame frame = new UpdateFrame("5", conn);
+					UpdateFrame frame = new UpdateFrame("5", conn, "4");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,13 +61,13 @@ public class UpdateFrame extends JFrame {
 	 * @param conn 
 	 * @param string 
 	 */
-	public UpdateFrame(String pid, Connection conn) {
+	public UpdateFrame(String pid, Connection conn, String selectedPid) {
 		System.out.println("UpdateFrameCreated");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 619, 329);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(207, 255, 220));
+		contentPane.setBackground(new Color(0, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -78,7 +78,7 @@ public class UpdateFrame extends JFrame {
 		updateTitle.setBounds(176, 21, 298, 29);
 		contentPane.add(updateTitle);
 		
-		
+	
 		JLabel selectAttributeLabel = new JLabel("Select an Attribute:");
 		selectAttributeLabel.setFont(new Font("Noto Sans Arabic", Font.BOLD, 18));
 		selectAttributeLabel.setBounds(37, 76, 182, 21);
@@ -133,7 +133,7 @@ public class UpdateFrame extends JFrame {
 				}else {
 					String attribute = (String) attributeComboBox.getSelectedItem();
 					String newvalue = newTextField.getText();
-					String query = "UPDATE product1 SET "+ attribute +" = '" + newvalue + "' WHERE product_id = "+ pid + "";
+					String query = "UPDATE product1 SET "+ attribute +" = '" + newvalue + "', committed = 'No' WHERE product_id = "+ pid + "";
 					PreparedStatement stmt = null;
 					try {
 						stmt = conn.prepareStatement(query);
@@ -149,6 +149,7 @@ public class UpdateFrame extends JFrame {
 						e1.printStackTrace();
 					}
 		            JOptionPane.showMessageDialog(null, "Attribute updated successfuly");
+		           
 				}
 
 			}

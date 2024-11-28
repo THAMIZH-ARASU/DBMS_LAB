@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Toolkit;
+import java.awt.Window;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.AbstractButton;
@@ -33,10 +35,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Enumeration;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 import java.awt.TextField;
 import javax.swing.UIManager;
 import java.awt.event.KeyAdapter;
@@ -106,7 +110,7 @@ public class Form extends JFrame {
 		contentPane.setForeground(new Color(207, 255, 220));
 		contentPane.setFont(new Font("Noto Sans", Font.BOLD, 11));
 		contentPane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		contentPane.setBackground(new Color(37, 61, 44));
+		contentPane.setBackground(new Color(9, 11, 94));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 
 		setContentPane(contentPane);
@@ -121,6 +125,7 @@ public class Form extends JFrame {
 		scrollPane.setViewportBorder(new EmptyBorder(0, 0, 0, 0));
 		scrollPane.setBounds(759, 11, 671, 585);
 		contentPane.add(scrollPane);
+		
 		
 		itemTable = new JTable();
 		itemTable.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -163,7 +168,7 @@ public class Form extends JFrame {
 		itemTable.getColumnModel().getColumn(7).setPreferredWidth(85);
 		itemTable.getColumnModel().getColumn(8).setResizable(false);
 		itemTable.getColumnModel().getColumn(8).setPreferredWidth(58);
-		itemTable.setBackground(new Color(207, 255, 220));
+		itemTable.setBackground(new Color(128, 255, 255));
 		itemTable.setBorder(new EmptyBorder(0, 0, 0, 0));
 		itemTable.setFont(new Font("Noto Sans Lisu", Font.BOLD, 11));
 		
@@ -183,7 +188,7 @@ public class Form extends JFrame {
 		
 		
 		JPanel formPanel = new JPanel();
-		formPanel.setBackground(new Color(104, 186, 127));
+		formPanel.setBackground(new Color(0, 198, 198));
 		formPanel.setBounds(10, 58, 739, 585);
 		contentPane.add(formPanel);
 		formPanel.setLayout(null);
@@ -272,17 +277,42 @@ public class Form extends JFrame {
 		
 		priceTextField = new JTextField();
 		priceTextField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				char keyChar = e.getKeyChar();
-				if (!Character.isDigit(keyChar)) {
-			        // The pressed key is not a number
-					JOptionPane.showMessageDialog(null, "Only numeric vlaues allowed in this field");
-			        System.out.println("Non-numeric key pressed: " + keyChar);
-			        priceTextField.setText("");
-			    }
-			}
+		    @Override
+		    public void keyReleased(KeyEvent e) {
+		        String value = priceTextField.getText();
+		        if (!isValid(value)) {
+		            JOptionPane.showMessageDialog(null, "Only numeric values are allowed in this field.");
+		            System.out.println("Invalid input detected: " + e.getKeyChar());
+		            
+		            // Allow only valid numeric input including one decimal point.
+		            priceTextField.setText(removeInvalidChars(value));
+		        }
+		    }
+
+		    private boolean isValid(String value) {
+		        // Allows digits and at most one decimal point.
+		        String pattern = "^\\d*(\\.\\d*)?$";
+		        return Pattern.matches(pattern, value);
+		    }
+
+		    private String removeInvalidChars(String value) {
+		        // Remove all characters except digits and one decimal point.
+		        StringBuilder validValue = new StringBuilder();
+		        boolean decimalFound = false;
+
+		        for (char c : value.toCharArray()) {
+		            if (Character.isDigit(c)) {
+		                validValue.append(c);
+		            } else if (c == '.' && !decimalFound) {
+		                validValue.append(c);
+		                decimalFound = true;
+		            }
+		        }
+		        return validValue.toString();
+		    }
 		});
+
+
 		priceTextField.setFont(new Font("Noto Sans Georgian", Font.BOLD | Font.ITALIC, 16));
 		priceTextField.setColumns(10);
 		priceTextField.setBounds(257, 335, 354, 26);
@@ -291,23 +321,45 @@ public class Form extends JFrame {
 		availabletextField = new JTextField();
 		availabletextField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyPressed(KeyEvent e) {
-				char keyChar = e.getKeyChar();
-				if (!Character.isDigit(keyChar)) {
-			        // The pressed key is not a number
-					JOptionPane.showMessageDialog(null, "Only numeric vlaues allowed in this field");
-			        System.out.println("Non-numeric key pressed: " + keyChar);
-			        availabletextField.setText("");
+			public void keyReleased(KeyEvent e) {
+				String value = availabletextField.getText();
+			    if (!isValid(value)) { 
+			    	JOptionPane.showMessageDialog(null, "Only numeric values are allowed in this field.");
+			    	System.out.println("Invalid input detected: " + e.getKeyChar());
+			    	// Allow only valid numeric input including one decimal point.
+			    	availabletextField.setText(removeInvalidChars(value));
 			    }
 			}
+
+			private boolean isValid(String value) {
+				// Allows digits and at most one decimal point.
+				String pattern = "^\\d*(\\.\\d*)?$";
+				return Pattern.matches(pattern, value);
+			}
+
+			private String removeInvalidChars(String value) {
+				// Remove all characters except digits and one decimal point.
+				StringBuilder validValue = new StringBuilder();
+				boolean decimalFound = false;
+				for (char c : value.toCharArray()) {
+					if (Character.isDigit(c)) {
+						validValue.append(c);
+			        } else if (c == '.' && !decimalFound) {
+			        	validValue.append(c);
+			        	decimalFound = true;
+			        }
+			    }
+			    return validValue.toString();
+			}
 		});
+
 		availabletextField.setFont(new Font("Noto Sans Georgian", Font.BOLD | Font.ITALIC, 16));
 		availabletextField.setColumns(10);
 		availabletextField.setBounds(257, 378, 354, 26);
 		formPanel.add(availabletextField);
 		
 		JRadioButton YesRadioButton = new JRadioButton("Yes");
-		YesRadioButton.setBackground(new Color(104, 186, 127));
+		YesRadioButton.setBackground(new Color(0, 198, 198));
 		YesRadioButton.setFont(new Font("Noto Sans Arabic", Font.BOLD | Font.ITALIC, 16));
 		YesRadioButton.setBounds(262, 420, 109, 23);
 		formPanel.add(YesRadioButton);
@@ -315,7 +367,7 @@ public class Form extends JFrame {
 		JRadioButton noRadioButton = new JRadioButton("No");
 		noRadioButton.setSelected(true);
 		noRadioButton.setFont(new Font("Noto Sans Arabic", Font.BOLD | Font.ITALIC, 16));
-		noRadioButton.setBackground(new Color(104, 186, 127));
+		noRadioButton.setBackground(new Color(0, 198, 198));
 		noRadioButton.setBounds(383, 420, 109, 23);
 		formPanel.add(noRadioButton);
 		
@@ -358,6 +410,7 @@ public class Form extends JFrame {
 		formPanel.add(clearButton);
 		
 		JButton updateButton = new JButton("UPDATE");
+		
 		updateButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		updateButton.setFont(new Font("Noto Sans Lao", Font.BOLD | Font.ITALIC, 18));
@@ -444,6 +497,10 @@ public class Form extends JFrame {
 		formPanel.add(committedBit);
 		
 		JButton saveButton = new JButton("SAVE");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		saveButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		saveButton.addMouseListener(new MouseAdapter() {
@@ -578,7 +635,92 @@ public class Form extends JFrame {
 			}
 		});
 		
-		
+		pidComboBox.addItemListener(new ItemListener() {
+		    public void itemStateChanged(ItemEvent e) {
+		        if (e.getStateChange() != ItemEvent.SELECTED) {
+		            return; // Only handle SELECTED event
+		        }
+
+		        String pid = String.valueOf(pidComboBox.getSelectedItem());
+
+		        if (pid == null || pid.equalsIgnoreCase("0") || pid.equalsIgnoreCase("") || pidComboBox.getSelectedIndex() == 0) {
+		            resetFields();
+		            return;
+		        }
+
+		        if (!isValid(pid)) {
+		            JOptionPane.showMessageDialog(null, "Invalid product ID. Only numeric values are allowed.");
+		            resetFields();
+		            return;
+		        }
+
+		        String query = "SELECT * FROM product1 WHERE product_id = ?";
+		        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+		            stmt.setString(1, pid);
+		            ResultSet rs = stmt.executeQuery();
+
+		            if (!rs.next()) {
+		                JOptionPane.showMessageDialog(null, "No record found with product ID: " + pid);
+		                resetFields();
+		                return;
+		            } else {
+		                populateFields(rs);
+		            }
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
+		        }
+		    }
+
+		    private boolean isValid(String pid) {
+		        // Allow only digits
+		        String pattern = "^\\d+$";
+		        return Pattern.matches(pattern, pid);
+		    }
+
+		    private void resetFields() {
+		        committedBit.setText("");
+		        productNameTextField.setText("");
+		        categoryComboBox.setSelectedItem("");
+		        brandComboBox.setSelectedItem("");
+		        modelTextField.setText("");
+		        specificationTextArea.setText("");
+		        priceTextField.setText("");
+		        availabletextField.setText("");
+		        noRadioButton.doClick();
+		        commitButton.setEnabled(false);
+		    }
+
+		    private void populateFields(ResultSet rs) throws SQLException {
+		        String name = rs.getString("product_name");
+		        String category = rs.getString("category");
+		        String brand = rs.getString("brand");
+		        String p_model = rs.getString("model");
+		        String specification = rs.getString("specification");
+		        String price = rs.getString("price");
+		        String availableStock = rs.getString("available_stock");
+		        String isTrendy = rs.getString("is_trending");
+		        String comBit = rs.getString("committed");
+
+		        productNameTextField.setText(name);
+		        categoryComboBox.setSelectedItem(category);
+		        brandComboBox.setSelectedItem(brand);
+		        modelTextField.setText(p_model);
+		        specificationTextArea.setText(specification);
+		        priceTextField.setText(price);
+		        availabletextField.setText(availableStock);
+		        if (isTrendy.equalsIgnoreCase("Yes")) {
+		            YesRadioButton.doClick();
+		        } else {
+		            noRadioButton.doClick();
+		        }
+		        committedBit.setText(comBit);
+
+		        commitButton.setEnabled(!comBit.equalsIgnoreCase("Yes"));
+		    }
+		});
+
+
+		/*
 		pidComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String pid = String.valueOf(pidComboBox.getSelectedItem());
@@ -672,6 +814,7 @@ public class Form extends JFrame {
 				}
 			}
 		});
+		*/
 		
 		
 		commitButton.addActionListener(new ActionListener() {
@@ -1010,15 +1153,24 @@ public class Form extends JFrame {
 		});
 		
 		updateButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (String.valueOf(pidComboBox.getSelectedItem()).equalsIgnoreCase("0")) {
-					JOptionPane.showMessageDialog(null, "Please Select a Record");
-				}else {
-					new UpdateFrame(String.valueOf(pidComboBox.getSelectedItem()), conn).setVisible(true);
-				}
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        String selectedPid = String.valueOf(pidComboBox.getSelectedItem());
+
+		        if (selectedPid.equalsIgnoreCase("") || selectedPid.equalsIgnoreCase("0")) {
+		            JOptionPane.showMessageDialog(null, "Please select a record.");
+		            return;
+		        }
+
+		        new UpdateFrame(selectedPid, conn, selectedPid).setVisible(true);
+		        
+		        System.out.println("-----------------");
+	            // Refresh table and combo data
+	            loadTableData();
+	            loadComboData();
+
+		    }
 		});
-		
+
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(pidComboBox.getSelectedIndex() == 0 || String.valueOf(pidComboBox.getSelectedItem()).equalsIgnoreCase("") || String.valueOf(pidComboBox.getSelectedItem()).equalsIgnoreCase("0")) {

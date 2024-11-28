@@ -65,7 +65,7 @@ public class AuthenticateLogin extends JFrame {
 		setBounds(100, 100, 461, 583);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(207, 255, 220));
-		contentPane.setBackground(new Color(46, 111, 64));
+		contentPane.setBackground(new Color(9, 11, 94));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -74,7 +74,7 @@ public class AuthenticateLogin extends JFrame {
 		JLabel titleLabel = new JLabel("Welcome to Product Management System");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setBounds(10, 11, 425, 62);
-		titleLabel.setForeground(new Color(207, 255, 220));
+		titleLabel.setForeground(new Color(147, 255, 255));
 		titleLabel.setFont(new Font("Noto Sans Arabic", Font.BOLD | Font.ITALIC, 20));
 		contentPane.add(titleLabel);
 		
@@ -82,7 +82,7 @@ public class AuthenticateLogin extends JFrame {
 		loginLabel.setIcon(null);
 		loginLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		loginLabel.setFont(new Font("Noto Sans Georgian", Font.BOLD, 34));
-		loginLabel.setForeground(new Color(207, 255, 220));
+		loginLabel.setForeground(new Color(147, 255, 255));
 		loginLabel.setBounds(65, 84, 370, 41);
 		contentPane.add(loginLabel);
 		
@@ -117,16 +117,16 @@ public class AuthenticateLogin extends JFrame {
 		contentPane.add(showPassButton);
 		
 		userNameLabel = new JLabel("Username :");
-		userNameLabel.setForeground(new Color(207, 255, 220));
-		userNameLabel.setBackground(new Color(46, 111, 64));
+		userNameLabel.setForeground(new Color(147, 255, 255));
+		userNameLabel.setBackground(new Color(9, 11, 94));
 		userNameLabel.setFont(new Font("Noto Sans", Font.BOLD, 20));
 		userNameLabel.setBounds(31, 175, 131, 27);
 		contentPane.add(userNameLabel);
 		
 		passwordLabel = new JLabel("Password :");
-		passwordLabel.setForeground(new Color(207, 255, 220));
+		passwordLabel.setForeground(new Color(147, 255, 255));
 		passwordLabel.setFont(new Font("Noto Sans", Font.BOLD, 20));
-		passwordLabel.setBackground(new Color(46, 111, 64));
+		passwordLabel.setBackground(new Color(9, 11, 94));
 		passwordLabel.setBounds(31, 287, 131, 27);
 		contentPane.add(passwordLabel);
 		
@@ -139,8 +139,8 @@ public class AuthenticateLogin extends JFrame {
 		});
 		changePassButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		changePassButton.setBorder(new EmptyBorder(0, 0, 0, 0));
-		changePassButton.setForeground(new Color(207, 255, 220));
-		changePassButton.setBackground(new Color(46, 111, 64));
+		changePassButton.setForeground(new Color(128, 255, 0));
+		changePassButton.setBackground(new Color(9, 11, 94));
 		changePassButton.setBounds(263, 372, 150, 23);
 		contentPane.add(changePassButton);
 		
@@ -165,17 +165,17 @@ public class AuthenticateLogin extends JFrame {
 		});
 		
 		loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		loginButton.setForeground(new Color(207, 255, 220));
+		loginButton.setForeground(new Color(147, 255, 255));
 		loginButton.setFont(new Font("Noto Sans Lao", Font.BOLD | Font.ITALIC, 20));
-		loginButton.setBackground(new Color(37, 61, 44));
+		loginButton.setBackground(new Color(9, 11, 94));
 		loginButton.setBounds(31, 417, 382, 41);
 		contentPane.add(loginButton);
 		
 		notRegisteredLabel = new JLabel("Not registered yet? ");
 		notRegisteredLabel.setFont(new Font("Noto Sans", Font.ITALIC, 15));
-		notRegisteredLabel.setBackground(new Color(46, 111, 64));
-		notRegisteredLabel.setForeground(new Color(207, 255, 220));
-		notRegisteredLabel.setBounds(65, 497, 131, 14);
+		notRegisteredLabel.setBackground(new Color(9, 11, 94));
+		notRegisteredLabel.setForeground(new Color(147, 255, 255));
+		notRegisteredLabel.setBounds(65, 497, 131, 21);
 		contentPane.add(notRegisteredLabel);
 		
 		createAccButton = new JButton("Create an Account");
@@ -188,10 +188,11 @@ public class AuthenticateLogin extends JFrame {
 		createAccButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		createAccButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		createAccButton.setForeground(new Color(128, 255, 0));
-		createAccButton.setBackground(new Color(46, 111, 64));
+		createAccButton.setBackground(new Color(9, 11, 94));
 		createAccButton.setFont(new Font("Noto Sans", Font.ITALIC, 15));
-		createAccButton.setBounds(206, 495, 207, 23);
+		createAccButton.setBounds(192, 494, 207, 27);
 		contentPane.add(createAccButton);
+		
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("C:\\PEC-26\\5th SEM\\DBMS_LAB\\eclipse_workspace_inventory\\management\\src\\main\\java\\assets\\login-icon.png"));

@@ -56,8 +56,8 @@ public class AuthenticateSignup extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 461, 583);
 		contentPane = new JPanel();
-		contentPane.setForeground(new Color(207, 255, 220));
-		contentPane.setBackground(new Color(46, 111, 64));
+		contentPane.setForeground(new Color(147, 255, 255));
+		contentPane.setBackground(new Color(9, 11, 94));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -66,14 +66,14 @@ public class AuthenticateSignup extends JFrame {
 		JLabel titleLabel = new JLabel("Welcome to Product Management System");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setBounds(10, 11, 425, 62);
-		titleLabel.setForeground(new Color(207, 255, 220));
+		titleLabel.setForeground(new Color(147, 255, 255));
 		titleLabel.setFont(new Font("Noto Sans Arabic", Font.BOLD | Font.ITALIC, 20));
 		contentPane.add(titleLabel);
 		
 		JLabel signUpLabel = new JLabel("SIGNUP");
 		signUpLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		signUpLabel.setFont(new Font("Noto Sans Georgian", Font.BOLD, 34));
-		signUpLabel.setForeground(new Color(207, 255, 220));
+		signUpLabel.setForeground(new Color(147, 255, 255));
 		signUpLabel.setBounds(71, 84, 353, 41);
 		contentPane.add(signUpLabel);
 		
@@ -109,16 +109,16 @@ public class AuthenticateSignup extends JFrame {
 		contentPane.add(showPassButton);
 		
 		userNameLabel = new JLabel("Username :");
-		userNameLabel.setForeground(new Color(207, 255, 220));
-		userNameLabel.setBackground(new Color(46, 111, 64));
+		userNameLabel.setForeground(new Color(147, 255, 255));
+		userNameLabel.setBackground(new Color(9, 11, 94));
 		userNameLabel.setFont(new Font("Noto Sans", Font.BOLD, 20));
 		userNameLabel.setBounds(31, 175, 131, 27);
 		contentPane.add(userNameLabel);
 		
 		passwordLabel = new JLabel("Password :");
-		passwordLabel.setForeground(new Color(207, 255, 220));
+		passwordLabel.setForeground(new Color(147, 255, 255));
 		passwordLabel.setFont(new Font("Noto Sans", Font.BOLD, 20));
-		passwordLabel.setBackground(new Color(46, 111, 64));
+		passwordLabel.setBackground(new Color(9, 11, 94));
 		passwordLabel.setBounds(31, 287, 131, 27);
 		contentPane.add(passwordLabel);
 		
@@ -160,16 +160,16 @@ public class AuthenticateSignup extends JFrame {
 			}
 		});
 		signInButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		signInButton.setForeground(new Color(207, 255, 220));
+		signInButton.setForeground(new Color(147, 255, 255));
 		signInButton.setFont(new Font("Noto Sans Lao", Font.BOLD | Font.ITALIC, 20));
-		signInButton.setBackground(new Color(37, 61, 44));
+		signInButton.setBackground(new Color(9, 11, 94));
 		signInButton.setBounds(31, 417, 382, 41);
 		contentPane.add(signInButton);
 		
 		HaveAccLabel = new JLabel("Already have an account?");
 		HaveAccLabel.setFont(new Font("Noto Sans", Font.ITALIC, 15));
 		HaveAccLabel.setBackground(new Color(46, 111, 64));
-		HaveAccLabel.setForeground(new Color(207, 255, 220));
+		HaveAccLabel.setForeground(new Color(147, 255, 255));
 		HaveAccLabel.setBounds(112, 501, 181, 14);
 		contentPane.add(HaveAccLabel);
 		
@@ -183,7 +183,7 @@ public class AuthenticateSignup extends JFrame {
 		loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		loginButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		loginButton.setForeground(new Color(128, 255, 0));
-		loginButton.setBackground(new Color(46, 111, 64));
+		loginButton.setBackground(new Color(9, 11, 94));
 		loginButton.setFont(new Font("Noto Sans", Font.ITALIC, 15));
 		loginButton.setBounds(286, 497, 61, 23);
 		contentPane.add(loginButton);

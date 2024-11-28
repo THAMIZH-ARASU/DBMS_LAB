@@ -14,7 +14,7 @@ public class EncryptPassword {
 	 public static String encryptPassword(String input){
 	     String encPass=null;
 	     if(input==null) return null;
-	     
+	    
 	     try{
 	         MessageDigest digest=MessageDigest.getInstance("MD5");
 	         digest.update(input.getBytes(),0,input.length());

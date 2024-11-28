@@ -65,7 +65,7 @@ public class ChangePassword extends JFrame {
 		setBounds(100, 100, 461, 583);
 		contentPane = new JPanel();
 		contentPane.setForeground(new Color(207, 255, 220));
-		contentPane.setBackground(new Color(46, 111, 64));
+		contentPane.setBackground(new Color(9, 11, 94));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -74,14 +74,14 @@ public class ChangePassword extends JFrame {
 		JLabel titleLabel = new JLabel("Welcome to Product Management System");
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setBounds(10, 11, 425, 62);
-		titleLabel.setForeground(new Color(207, 255, 220));
+		titleLabel.setForeground(new Color(147, 255, 255));
 		titleLabel.setFont(new Font("Noto Sans Arabic", Font.BOLD | Font.ITALIC, 20));
 		contentPane.add(titleLabel);
 		
 		JLabel changePassLabel = new JLabel("CHANGE PASSWORD");
 		changePassLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		changePassLabel.setFont(new Font("Noto Sans Georgian", Font.BOLD, 34));
-		changePassLabel.setForeground(new Color(207, 255, 220));
+		changePassLabel.setForeground(new Color(147, 255, 255));
 		changePassLabel.setBounds(10, 84, 425, 41);
 		contentPane.add(changePassLabel);
 		
@@ -116,16 +116,16 @@ public class ChangePassword extends JFrame {
 		contentPane.add(showOldPassButton);
 		
 		userNameLabel = new JLabel("Username :");
-		userNameLabel.setForeground(new Color(207, 255, 220));
-		userNameLabel.setBackground(new Color(46, 111, 64));
+		userNameLabel.setForeground(new Color(147, 255, 255));
+		userNameLabel.setBackground(new Color(9, 11, 94));
 		userNameLabel.setFont(new Font("Noto Sans", Font.BOLD, 20));
 		userNameLabel.setBounds(31, 136, 131, 27);
 		contentPane.add(userNameLabel);
 		
 		oldPassLabel = new JLabel("Old Password :");
-		oldPassLabel.setForeground(new Color(207, 255, 220));
+		oldPassLabel.setForeground(new Color(147, 255, 255));
 		oldPassLabel.setFont(new Font("Noto Sans", Font.BOLD, 20));
-		oldPassLabel.setBackground(new Color(46, 111, 64));
+		oldPassLabel.setBackground(new Color(9, 11, 94));
 		oldPassLabel.setBounds(31, 222, 186, 27);
 		contentPane.add(oldPassLabel);
 		
@@ -209,9 +209,9 @@ public class ChangePassword extends JFrame {
 			}
 		});
 		changePassButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		changePassButton.setForeground(new Color(207, 255, 220));
+		changePassButton.setForeground(new Color(147, 255, 255));
 		changePassButton.setFont(new Font("Noto Sans Lao", Font.BOLD | Font.ITALIC, 20));
-		changePassButton.setBackground(new Color(37, 61, 44));
+		changePassButton.setBackground(new Color(9, 11, 94));
 		changePassButton.setBounds(31, 417, 382, 41);
 		contentPane.add(changePassButton);
 		
@@ -230,10 +230,11 @@ public class ChangePassword extends JFrame {
 		loginButton.setBounds(352, 497, 61, 23);
 		contentPane.add(loginButton);
 		
+		
 		newPassLabel = new JLabel("New Password :");
-		newPassLabel.setForeground(new Color(207, 255, 220));
+		newPassLabel.setForeground(new Color(147, 255, 255));
 		newPassLabel.setFont(new Font("Noto Sans", Font.BOLD, 20));
-		newPassLabel.setBackground(new Color(46, 111, 64));
+		newPassLabel.setBackground(new Color(9, 11, 94));
 		newPassLabel.setBounds(31, 305, 162, 27);
 		contentPane.add(newPassLabel);
 		

@@ -147,7 +147,9 @@ public class ChangePassword extends JFrame {
 						setNewPassword(username, newPassword);
 						JOptionPane.showMessageDialog(null, "Password changed successfully");
 			            dispose();
-			            new AuthenticateLogin().setVisible(true);
+			            AuthenticateLogin frame = new AuthenticateLogin();
+			            frame.setLocationRelativeTo(null);
+				        frame.setVisible(true);
 					}else {
 						JOptionPane.showMessageDialog(null, "New password does not meet the requirements!");
 					}
@@ -219,13 +221,15 @@ public class ChangePassword extends JFrame {
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new AuthenticateLogin().setVisible(true);
+				AuthenticateLogin frame = new AuthenticateLogin();
+				frame.setLocationRelativeTo(null);
+		        frame.setVisible(true);
 			}
 		});
 		loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		loginButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		loginButton.setForeground(new Color(128, 255, 0));
-		loginButton.setBackground(new Color(46, 111, 64));
+		loginButton.setBackground(new Color(9, 11, 94));
 		loginButton.setFont(new Font("Noto Sans", Font.ITALIC, 15));
 		loginButton.setBounds(352, 497, 61, 23);
 		contentPane.add(loginButton);
@@ -255,6 +259,7 @@ public class ChangePassword extends JFrame {
 				}
 			}
 		});
+		
 		showNewPassButton.setIcon(new ImageIcon(ChangePassword.class.getResource("/assets/eye.png")));
 		showNewPassButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		showNewPassButton.setBounds(365, 336, 48, 41);

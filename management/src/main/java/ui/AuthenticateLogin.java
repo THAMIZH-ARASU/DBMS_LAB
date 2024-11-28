@@ -49,6 +49,7 @@ public class AuthenticateLogin extends JFrame {
 				try {
 					AuthenticateLogin frame = new AuthenticateLogin();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -134,7 +135,9 @@ public class AuthenticateLogin extends JFrame {
 		changePassButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new ChangePassword().setVisible(true);
+				ChangePassword frame = new ChangePassword();
+				frame.setLocationRelativeTo(null);
+		        frame.setVisible(true);
 			}
 		});
 		changePassButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -157,7 +160,9 @@ public class AuthenticateLogin extends JFrame {
 				
 				if(checkLogin(username,password)==true){
 		            dispose();
-		            new Form().setVisible(true);
+		            Form frame = new Form();
+		            frame.setLocationRelativeTo(null);
+			        frame.setVisible(true);
 		        }else{
 		            JOptionPane.showMessageDialog(null, "Invalid username or password");
 		        }
@@ -182,7 +187,9 @@ public class AuthenticateLogin extends JFrame {
 		createAccButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new AuthenticateSignup().setVisible(true);
+				AuthenticateSignup frame = new AuthenticateSignup();
+				frame.setLocationRelativeTo(null);
+		        frame.setVisible(true);
 			}
 		});
 		createAccButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

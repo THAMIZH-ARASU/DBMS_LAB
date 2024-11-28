@@ -901,7 +901,7 @@ public class Form extends JFrame {
 		deleteButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		deleteButton.setFont(new Font("Noto Sans Lao", Font.BOLD | Font.ITALIC, 18));
 		deleteButton.setBackground(new Color(240, 240, 240));
-		deleteButton.setBounds(448, 541, 124, 33);
+		deleteButton.setBounds(448, 539, 124, 33);
 		formPanel.add(deleteButton);
 		
 		JLabel committedLabel = new JLabel("Committed to Main DataBase :");
@@ -1123,8 +1123,22 @@ public class Form extends JFrame {
 		JButton btnNewButton = new JButton("Log Out");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new AuthenticateLogin().setVisible(true);
+				int dialogResult = JOptionPane.showConfirmDialog(
+	    				null,
+	    				"Are you sure that you want to Log Out? ",
+	    				"Warning",
+	    				JOptionPane.YES_NO_OPTION
+					);
+
+				if (dialogResult == JOptionPane.YES_OPTION) {
+					dispose();
+					AuthenticateLogin frame = new AuthenticateLogin();
+					frame.setLocationRelativeTo(null);
+			        frame.setVisible(true);
+				}
+				else {
+					return;
+				}
 			}
 		});
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -1161,7 +1175,9 @@ public class Form extends JFrame {
 		            return;
 		        }
 
-		        new UpdateFrame(selectedPid, conn, selectedPid).setVisible(true);
+		        UpdateFrame frame = new UpdateFrame(selectedPid, conn, selectedPid);
+		        frame.setLocationRelativeTo(null);
+		        frame.setVisible(true);
 	            // Refresh table and combo data
 	            loadTableData();
 	            loadComboData();
@@ -1186,10 +1202,7 @@ public class Form extends JFrame {
 		        	    				JOptionPane.YES_NO_OPTION
 		        					);
 
-		        if (dialogResult == JOptionPane.NO_OPTION) {
-		        	   return;
-		        }
-		        else {
+		        if (dialogResult == JOptionPane.YES_OPTION) {
 		        	if(committedBit.getText().equalsIgnoreCase("Yes")) {
 		        		try {
 				            // Execute the merge query
@@ -1245,7 +1258,9 @@ public class Form extends JFrame {
 				            ex.printStackTrace();
 				        }
 		        	}
-		        	
+		        }
+		        else {
+		        	return;
 		        }
 		        
 			}
@@ -1298,63 +1313,47 @@ public class Form extends JFrame {
 	}
 	
 	public void loadTableData(String searchTxt) {
-		if (!(searchTxt.equalsIgnoreCase(""))) {
-			String query = "SELECT * FROM product1 WHERE LOWER(product_name) LIKE LOWER('%"+searchTxt+"%') OR LOWER(brand) LIKE LOWER('%"+searchTxt+"%') OR LOWER(category) LIKE LOWER('%"+searchTxt+"%') ORDER BY product_id";
-			try {
-				Statement stmt = conn.createStatement();
+	    if (!(searchTxt.equalsIgnoreCase(""))) {
+	        String query = "SELECT * FROM product1 WHERE LOWER(product_name) LIKE LOWER('%" + searchTxt + "%') OR LOWER(brand) LIKE LOWER('%" + searchTxt + "%') OR LOWER(category) LIKE LOWER('%" + searchTxt + "%') ORDER BY product_id";
+	        try {
+	            // Make the ResultSet scrollable by specifying the resultSet type and concurrency
+	            Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 	            ResultSet rs = stmt.executeQuery(query);
+	            
 	            DefaultTableModel model = (DefaultTableModel) itemTable.getModel();
-	            if (!(rs.next())) {
-	            	JOptionPane.showMessageDialog(null, "No Reocrds found");
-	            	searchTextField.setText("");
-	            	pidComboBox.setSelectedIndex(0);
-	            	loadTableData();
-	            	//loadComboData();
-	            	return;
+	            
+	            // Check if no records are found
+	            if (!rs.next()) {
+	                JOptionPane.showMessageDialog(null, "No Records found");
+	                searchTextField.setText("");
+	                pidComboBox.setSelectedIndex(0);
+	                loadTableData(""); // Call without search text to reload all data
+	                return;
 	            }
-		        model.setRowCount(0);  // Clear existing rows
-		        while (rs.next()) {
-		        	String pid = rs.getString("product_id");
-		            String name = rs.getString("product_name");
-		            String category = rs.getString("category");
-		            String brand = rs.getString("brand");
-		            String p_model = rs.getString("model");
-		            String specification = rs.getString("specification");
-		            String price = rs.getString("price");
-		            String inDate = rs.getString("in_date");
-		            String availableStock = rs.getString("available_stock");
-		            String isTrendy = rs.getString("is_trending");
-		            model.addRow(new Object[]{pid, name, category, brand, p_model, specification, price, inDate, availableStock, isTrendy});
-		        }
+	            
+	            // Reset the table model
+	            model.setRowCount(0);  // Clear existing rows
+	            rs.beforeFirst();  // Move cursor to the beginning
+	            while (rs.next()) {
+	                String pid = rs.getString("product_id");
+	                String name = rs.getString("product_name");
+	                String category = rs.getString("category");
+	                String brand = rs.getString("brand");
+	                String p_model = rs.getString("model");
+	                String specification = rs.getString("specification");
+	                String price = rs.getString("price");
+	                String inDate = rs.getString("in_date");
+	                String availableStock = rs.getString("available_stock");
+	                String isTrendy = rs.getString("is_trending");
+	                model.addRow(new Object[]{pid, name, category, brand, p_model, specification, price, inDate, availableStock, isTrendy});
+	            }
 	        } catch (SQLException e) {
 	            e.printStackTrace();
 	        }
-			return;
-		}
-	    // Assume you have a database connection established
-	    String query = "SELECT * FROM PRODUCT1 ORDER BY product_id";  // Example query
-	    try {
-	        Statement stmt = conn.createStatement();
-	        ResultSet rs = stmt.executeQuery(query);
-	        DefaultTableModel model = (DefaultTableModel) itemTable.getModel();
-	        model.setRowCount(0);  // Clear existing rows
-	        while (rs.next()) {
-	        	String pid = rs.getString("product_id");
-	            String name = rs.getString("product_name");
-	            String category = rs.getString("category");
-	            String brand = rs.getString("brand");
-	            String p_model = rs.getString("model");
-	            String specification = rs.getString("specification");
-	            String price = rs.getString("price");
-	            String inDate = rs.getString("in_date");
-	            String availableStock = rs.getString("available_stock");
-	            String isTrendy = rs.getString("is_trending");
-	            model.addRow(new Object[]{pid, name, category, brand, p_model, specification, price, inDate, availableStock, isTrendy});
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
+	        return;
 	    }
 	}
+
 	
 	public void loadTableData() {
 	    // Assume you have a database connection established

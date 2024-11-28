@@ -144,7 +144,9 @@ public class AuthenticateSignup extends JFrame {
 					if(checkLogin(username,password)==true){
 						JOptionPane.showMessageDialog(null, "New User: "+ username +" created!");
 			            dispose();
-			            new AuthenticateLogin().setVisible(true);
+			            AuthenticateLogin frame = new AuthenticateLogin();
+			            frame.setLocationRelativeTo(null);
+				        frame.setVisible(true);
 			        }else{
 			        	JOptionPane.showMessageDialog(null, username + " is already a registered user. Try a different username");
 			        }
@@ -177,7 +179,9 @@ public class AuthenticateSignup extends JFrame {
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new AuthenticateLogin().setVisible(true);
+				AuthenticateLogin frame = new AuthenticateLogin();
+				frame.setLocationRelativeTo(null);
+		        frame.setVisible(true);
 			}
 		});
 		loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

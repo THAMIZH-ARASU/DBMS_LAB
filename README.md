@@ -47,11 +47,11 @@ Below is an example the animated loading screen:
 
 ![loading](Images/SplashScreenLoad.png)
 
-Below is an example of an image of the Form used for management:
-
-![form](Images/Form.png)
-
 Below is an example the animated loading screen:
 
 ![login](Images/login.png)
+
+Below is an example of an image of the Form used for management:
+
+![form](Images/Form.png)
 

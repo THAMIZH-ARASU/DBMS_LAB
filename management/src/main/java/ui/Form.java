@@ -571,80 +571,104 @@ public class Form extends JFrame {
 		
 		
 		nextButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(String.valueOf(pidComboBox.getSelectedItem()).equalsIgnoreCase("0")) {
-					JOptionPane.showMessageDialog(null, "Choose a record or Enter a Product ID");
-					return;
-				}
-				Integer pid = Integer.parseInt(String.valueOf(pidComboBox.getSelectedItem()));
-				
-				if(checkExistence(pid)) {
-					;
-				}else {
-					JOptionPane.showMessageDialog(null, "No Record Found!");
-				}
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        if (String.valueOf(pidComboBox.getSelectedItem()).equalsIgnoreCase("0")) {
+		            JOptionPane.showMessageDialog(null, "Choose a record or Enter a Product ID");
+		            return;
+		        }
+		        Integer pid = Integer.parseInt(String.valueOf(pidComboBox.getSelectedItem()));
 
-			private boolean checkExistence(Integer pid) {
-				// TODO Auto-generated method stub
-				Connection con = null;
-				Statement stmt = null;
-				ResultSet rs = null;
-				 
-				try {
-					Class.forName("oracle.jdbc.driver.OracleDriver");
-					con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "thamizh", "thamizh");
-					stmt = con.createStatement();
-					String query = "SELECT * FROM product1 WHERE product_id = "+ (pid + 1) +"";
-			        rs = stmt.executeQuery(query);
-		            System.out.println("Executed the query : "+ query);
-		            if(!rs.next()) {
-		            	return false;
-		            }
-		            else {
-		            	System.out.println("-------------------");
-		            	String name = rs.getString("product_name");
-			            String category = rs.getString("category");
-			            String brand = rs.getString("brand");
-			            String p_model = rs.getString("model");
-			            String specification = rs.getString("specification");
-			            String price = rs.getString("price");
-			            String inDate = rs.getString("in_date");
-			            String availableStock = rs.getString("available_stock");
-			            String isTrendy = rs.getString("is_trending");
-			            String comBit = rs.getString("committed");
+		        Integer nextPid = getNextProductId(pid);
+		        if (nextPid != null) {
+		            loadProductDetails(nextPid);
+		        } else {
+		            JOptionPane.showMessageDialog(null, "No Next Record Found!");
+		        }
+		    }
 
-			            System.out.println(name+" "+category+" "+brand+" "+p_model+" "+specification+" "+price+" "+inDate+" "+availableStock+" "+isTrendy);
-			            
-			            committedBit.setText(comBit);
-			            pidTextField.setText(""+(pid + 1));
-			            pidComboBox.setSelectedItem(pid + 1);
-			            productNameTextField.setText(name);
-						categoryComboBox.setSelectedItem(category);
-						brandComboBox.setSelectedItem(brand);
-						modelTextField.setText(p_model);
-						specificationTextArea.setText(specification);
-						priceTextField.setText(price);
-						availabletextField.setText(availableStock);
-						if(isTrendy.equalsIgnoreCase("Yes")) {
-							YesRadioButton.doClick();
-						}else {
-							noRadioButton.doClick();
-						}
-						
-						if (committedBit.getText().equalsIgnoreCase("Yes")) {
-			            	commitButton.setEnabled(false);
-			            }else {
-			            	commitButton.setEnabled(true);
-			            }
+		    private Integer getNextProductId(Integer currentPid) {
+		        Connection con = null;
+		        PreparedStatement pstmt = null;
+		        ResultSet rs = null;
+
+		        try {
+		            Class.forName("oracle.jdbc.driver.OracleDriver");
+		            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "thamizh", "thamizh");
+		            
+		            // Query to get the next product_id greater than the current one
+		            String query = "SELECT product_id FROM product1 WHERE product_id > ? ORDER BY product_id ASC FETCH FIRST 1 ROWS ONLY";
+		            pstmt = con.prepareStatement(query);
+		            pstmt.setInt(1, currentPid);
+		            rs = pstmt.executeQuery();
+
+		            if (rs.next()) {
+		                return rs.getInt("product_id");
 		            }
-				}catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return true;
-			}
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        } finally {
+		            try {
+		                if (rs != null) rs.close();
+		                if (pstmt != null) pstmt.close();
+		                if (con != null) con.close();
+		            } catch (SQLException se) {
+		                se.printStackTrace();
+		            }
+		        }
+		        return null;  // No next record found
+		    }
+
+		    private void loadProductDetails(Integer pid) {
+		        // This method should fetch and display product details as in your current `checkExistence` method
+		        // Reuse the existing logic for loading data and updating the UI
+		        Connection con = null;
+		        PreparedStatement pstmt = null;
+		        ResultSet rs = null;
+
+		        try {
+		            Class.forName("oracle.jdbc.driver.OracleDriver");
+		            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "thamizh", "thamizh");
+		            
+		            String query = "SELECT * FROM product1 WHERE product_id = ?";
+		            pstmt = con.prepareStatement(query);
+		            pstmt.setInt(1, pid);
+		            rs = pstmt.executeQuery();
+
+		            if (rs.next()) {
+		                // Populate the UI fields
+		                committedBit.setText(rs.getString("committed"));
+		                pidTextField.setText(String.valueOf(pid));
+		                pidComboBox.setSelectedItem(pid);
+		                productNameTextField.setText(rs.getString("product_name"));
+		                categoryComboBox.setSelectedItem(rs.getString("category"));
+		                brandComboBox.setSelectedItem(rs.getString("brand"));
+		                modelTextField.setText(rs.getString("model"));
+		                specificationTextArea.setText(rs.getString("specification"));
+		                priceTextField.setText(rs.getString("price"));
+		                availabletextField.setText(rs.getString("available_stock"));
+
+		                if ("Yes".equalsIgnoreCase(rs.getString("is_trending"))) {
+		                    YesRadioButton.doClick();
+		                } else {
+		                    noRadioButton.doClick();
+		                }
+
+		                commitButton.setEnabled(!"Yes".equalsIgnoreCase(rs.getString("committed")));
+		            }
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        } finally {
+		            try {
+		                if (rs != null) rs.close();
+		                if (pstmt != null) pstmt.close();
+		                if (con != null) con.close();
+		            } catch (SQLException se) {
+		                se.printStackTrace();
+		            }
+		        }
+		    }
 		});
+
 		
 		pidComboBox.addItemListener(new ItemListener() {
 		    public void itemStateChanged(ItemEvent e) {
@@ -1047,80 +1071,104 @@ public class Form extends JFrame {
 		});
 		
 		previousButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if((String.valueOf(pidComboBox.getSelectedItem()).equalsIgnoreCase("0"))) {
-					JOptionPane.showMessageDialog(null, "Choose a record or Enter a Product ID");
-					return;
-				}
-				Integer pid = Integer.parseInt((String.valueOf(pidComboBox.getSelectedItem())));
-				
-				if(checkExistence(pid)) {
-					;
-				}else {
-					JOptionPane.showMessageDialog(null, "No Record Found!");
-				}
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        if (String.valueOf(pidComboBox.getSelectedItem()).equalsIgnoreCase("0")) {
+		            JOptionPane.showMessageDialog(null, "Choose a record or Enter a Product ID");
+		            return;
+		        }
+		        Integer pid = Integer.parseInt(String.valueOf(pidComboBox.getSelectedItem()));
 
-			private boolean checkExistence(Integer pid) {
-				// TODO Auto-generated method stub
-				Connection con = null;
-				Statement stmt = null;
-				ResultSet rs = null;
-				 
-				try {
-					Class.forName("oracle.jdbc.driver.OracleDriver");
-					con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "thamizh", "thamizh");
-					stmt = con.createStatement();
-					String query = "SELECT * FROM product1 WHERE product_id = "+ (pid - 1) +"";
-			        rs = stmt.executeQuery(query);
-		            System.out.println("Executed the query : "+ query);
-		            if(!rs.next()) {
-		            	return false;
-		            }
-		            else {
-		            	System.out.println("-------------------");
-		            	String name = rs.getString("product_name");
-			            String category = rs.getString("category");
-			            String brand = rs.getString("brand");
-			            String p_model = rs.getString("model");
-			            String specification = rs.getString("specification");
-			            String price = rs.getString("price");
-			            String inDate = rs.getString("in_date");
-			            String availableStock = rs.getString("available_stock");
-			            String isTrendy = rs.getString("is_trending");
-			            String comBit = rs.getString("committed");
+		        Integer previousPid = getPreviousProductId(pid);
+		        if (previousPid != null) {
+		            loadProductDetails(previousPid);
+		        } else {
+		            JOptionPane.showMessageDialog(null, "No Previous Record Found!");
+		        }
+		    }
 
-			            System.out.println(name+" "+category+" "+brand+" "+p_model+" "+specification+" "+price+" "+inDate+" "+availableStock+" "+isTrendy);
-			            
-			            committedBit.setText(comBit);
-			            pidTextField.setText(""+(pid - 1));
-			            pidComboBox.setSelectedItem(pid - 1);
-			            productNameTextField.setText(name);
-						categoryComboBox.setSelectedItem(category);
-						brandComboBox.setSelectedItem(brand);
-						modelTextField.setText(p_model);
-						specificationTextArea.setText(specification);
-						priceTextField.setText(price);
-						availabletextField.setText(availableStock);
-						if(isTrendy.equalsIgnoreCase("Yes")) {
-							YesRadioButton.doClick();
-						}else {
-							noRadioButton.doClick();
-						}
-			            
-			            if (committedBit.getText().equalsIgnoreCase("Yes")) {
-			            	commitButton.setEnabled(false);
-			            }else {
-			            	commitButton.setEnabled(true);
-			            }
+		    private Integer getPreviousProductId(Integer currentPid) {
+		        Connection con = null;
+		        PreparedStatement pstmt = null;
+		        ResultSet rs = null;
+
+		        try {
+		            Class.forName("oracle.jdbc.driver.OracleDriver");
+		            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "thamizh", "thamizh");
+		            
+		            // Query to get the previous product_id less than the current one
+		            String query = "SELECT product_id FROM product1 WHERE product_id < ? ORDER BY product_id DESC FETCH FIRST 1 ROWS ONLY";
+		            pstmt = con.prepareStatement(query);
+		            pstmt.setInt(1, currentPid);
+		            rs = pstmt.executeQuery();
+
+		            if (rs.next()) {
+		                return rs.getInt("product_id");
 		            }
-				}catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return true;
-			}
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        } finally {
+		            try {
+		                if (rs != null) rs.close();
+		                if (pstmt != null) pstmt.close();
+		                if (con != null) con.close();
+		            } catch (SQLException se) {
+		                se.printStackTrace();
+		            }
+		        }
+		        return null;  // No previous record found
+		    }
+
+		    private void loadProductDetails(Integer pid) {
+		        // This method should fetch and display product details as in your current `checkExistence` method
+		        // Reuse the existing logic for loading data and updating the UI
+		        Connection con = null;
+		        PreparedStatement pstmt = null;
+		        ResultSet rs = null;
+
+		        try {
+		            Class.forName("oracle.jdbc.driver.OracleDriver");
+		            con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "thamizh", "thamizh");
+		            
+		            String query = "SELECT * FROM product1 WHERE product_id = ?";
+		            pstmt = con.prepareStatement(query);
+		            pstmt.setInt(1, pid);
+		            rs = pstmt.executeQuery();
+
+		            if (rs.next()) {
+		                // Populate the UI fields
+		                committedBit.setText(rs.getString("committed"));
+		                pidTextField.setText(String.valueOf(pid));
+		                pidComboBox.setSelectedItem(pid);
+		                productNameTextField.setText(rs.getString("product_name"));
+		                categoryComboBox.setSelectedItem(rs.getString("category"));
+		                brandComboBox.setSelectedItem(rs.getString("brand"));
+		                modelTextField.setText(rs.getString("model"));
+		                specificationTextArea.setText(rs.getString("specification"));
+		                priceTextField.setText(rs.getString("price"));
+		                availabletextField.setText(rs.getString("available_stock"));
+
+		                if ("Yes".equalsIgnoreCase(rs.getString("is_trending"))) {
+		                    YesRadioButton.doClick();
+		                } else {
+		                    noRadioButton.doClick();
+		                }
+
+		                commitButton.setEnabled(!"Yes".equalsIgnoreCase(rs.getString("committed")));
+		            }
+		        } catch (Exception ex) {
+		            ex.printStackTrace();
+		        } finally {
+		            try {
+		                if (rs != null) rs.close();
+		                if (pstmt != null) pstmt.close();
+		                if (con != null) con.close();
+		            } catch (SQLException se) {
+		                se.printStackTrace();
+		            }
+		        }
+		    }
 		});
+
 		
 		refreshButton.setBorder(new EmptyBorder(0, 0, 0, 0));
 		refreshButton.setIcon(new ImageIcon(Form.class.getResource("/assets/reload.png")));

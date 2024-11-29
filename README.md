@@ -8,10 +8,12 @@
 
 Here're some of the project's best features:
 
-*   Comprehensive SQL Query Implementations
-*   Interactive User Interface with Java Swing
-*   Seamless Database Connectivity
-*   Domain-specific Mini Project (Product Management System)
+*   Comprehensive SQL Query Implementations.
+*   Interactive User Interface with Java Swing.
+*   Seamless Database Connectivity.
+*   Domain-specific Mini Project (Product Management System).
+*   Implemented a Temporary table in the database in addition to the Main Table.
+*   Better User Authentication with password encryption.
 
 <h2>🛠️ Installation Steps:</h2>
 

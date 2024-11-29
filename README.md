@@ -41,9 +41,16 @@ Technologies used in the project:
 *   Eclipse IDE for development
 *   Oracle Database for backend
 
-## Results
+<h2> Results</h2>h2
 
-Below is an example of an image enhanced using SRCNN:
+Below is an example of an image of the Form used for management:
 
-![Enhanced Image](Images/Form.png)
+![form](Images/Form.png)
 
+Below is an example the animated loading screen:
+
+![loading](Images/SplashScreenLoading.png)
+
+Below is an example the animated loading screen:
+
+![login](Images/login.png)

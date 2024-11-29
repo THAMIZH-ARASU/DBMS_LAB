@@ -40,3 +40,10 @@ Technologies used in the project:
 *   Java Swing for UI and Data access from Oracle Database
 *   Eclipse IDE for development
 *   Oracle Database for backend
+
+## Results
+
+Below is an example of an image enhanced using SRCNN:
+
+![Enhanced Image](Images/Form.png)
+

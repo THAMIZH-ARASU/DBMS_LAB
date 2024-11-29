@@ -41,7 +41,7 @@ Technologies used in the project:
 *   Eclipse IDE for development
 *   Oracle Database for backend
 
-<h2> Results</h2>h2
+<h2> Results</h2>
 
 Below is an example the animated loading screen:
 

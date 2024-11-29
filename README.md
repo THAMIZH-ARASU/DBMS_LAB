@@ -49,7 +49,7 @@ Below is an example of an image of the Form used for management:
 
 Below is an example the animated loading screen:
 
-![loading](Images/SplashScreenLoading.png)
+![loading](Images/SplashScreenLoad.png)
 
 Below is an example the animated loading screen:
 

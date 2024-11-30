@@ -49,7 +49,7 @@ Below is an example the animated loading screen:
 
 ![loading](Images/SplashScreenLoad.png)
 
-Below is an example the animated loading screen:
+Below is an example the login frame:
 
 ![login](Images/login.png)
 
